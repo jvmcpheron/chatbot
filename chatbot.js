@@ -51,6 +51,7 @@ function checkAllMessages(message) {
     response('Hello!', ['hello', 'hi', 'hey', 'sup', 'heyo', 'hiya'], true);
     response('Bye!', ['bye', 'goodbye', 'farewell', 'adios'], true);
     response("I'm doing fine, and you?", ['how', 'are', 'you', 'doing']);
+    response("The sky.", ['what\'s', 'up']);
 
     // questions about bot
     response("I'm a robot programmed to talk to you. Better than being someone lonely enough to talk to a robot, I guess. Hey, I'm not judging.", ['what', 'are', 'you'], false, ['what']);
