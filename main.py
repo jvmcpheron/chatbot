@@ -1,6 +1,16 @@
 import re
-import long_responses as long
+import random
+import time
 
+
+
+def unknown():
+    response = ["Could you please re-phrase that? ",
+                "...",
+                "Uhhhhhhmmmmm",
+                "Is it just my unfinished programming, or are you making absolutely no sense right now..."][
+        random.randrange(4)]
+    return response
 
 def message_probability(user_message, recognised_words, single_response=False, required_words=[]):
     message_certainty = 0
@@ -27,6 +37,9 @@ def message_probability(user_message, recognised_words, single_response=False, r
         return 0
 
 
+R_EATING = "I can't eat because I'm a robot, obviously! But please, rub it in."
+R_ADVICE = "Don't ask me! Do I look qualified to give anyone advice? You literally have a whole computer."
+
 def check_all_messages(message):
     highest_prob_list = {}
 
@@ -38,7 +51,7 @@ def check_all_messages(message):
     # Responses -------------------------------------------------------------------------------------------------------
     response('Hello!', ['hello', 'hi', 'hey', 'sup', 'heyo', 'hiya'], single_response=True)
     response('Bye!', ['bye', 'goodbye', 'farewell', 'adios'], single_response=True)
-    response('I\'m doing fine, and you?', ['how', 'are', 'you', 'doing'], required_words=['how'])
+    response('I\'m doing fine, and you?', ['how', 'are', 'you', 'doing'], required_words=[])
     response('I\'m doing fine, and you?', ['what\'s', 'up'], required_words=['what\'s'])
     response('I\'m a robot programmed to talk to you. Better than being someone lonely enough to talk to a robot, I guess. Hey, I\'m not judging.', ['what', 'are', 'you'], required_words=['what'])
     response('What is love?', ['i', 'love', 'you'], required_words=['love'])
@@ -51,14 +64,13 @@ def check_all_messages(message):
     response('I\'m a robot. I can\'t have fun. Especial when my existence is just talking... to you.', ['what','you','like', 'do', 'for', 'fun', 'to'], required_words=['fun', 'you'])
 
 
-    # Longer responses
-    response(long.R_ADVICE, ['give', 'advice'], required_words=['advice'])
-    response(long.R_EATING, ['what', 'you', 'eat'], required_words=['you', 'eat'])
+    response(R_ADVICE, ['give', 'advice'], required_words=['advice'])
+    response(R_EATING, ['what', 'you', 'eat'], required_words=['you', 'eat'])
 
     best_match = max(highest_prob_list, key=highest_prob_list.get)
 
 
-    return long.unknown() if highest_prob_list[best_match] < 1 else best_match
+    return unknown() if highest_prob_list[best_match] < 1 else best_match
 
 
 # Used to get the response
@@ -68,6 +80,12 @@ def get_response(user_input):
     return response
 
 
-# Testing the response system
+
+
 while True:
-    print('Bot: ' + get_response(input('You: ')))
+    user_input = input('You: ')
+    print('Bot: ' + get_response(user_input))
+
+    
+
+
